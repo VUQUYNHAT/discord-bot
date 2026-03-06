@@ -43,8 +43,13 @@ async def listkw(ctx):
 @bot.event
 async def on_message(message):
 
-    # Bỏ qua tin nhắn của bot
+    # bỏ qua bot
     if message.author.bot:
+        return
+
+    # bỏ qua lệnh
+    if message.content.startswith("!"):
+        await bot.process_commands(message)
         return
 
     text = message.content.lower()
