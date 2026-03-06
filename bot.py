@@ -43,14 +43,17 @@ async def listkw(ctx):
 @bot.event
 async def on_message(message):
 
+    # Bỏ qua tin nhắn của bot
     if message.author.bot:
-        text = message.content.lower()
+        return
 
-        for kw in keywords:
-            if kw.lower() in text:
-                role = message.guild.get_role(ROLE_ID)
-                await message.channel.send(f"{role.mention} 🔔 Keyword detected: **{kw}**")
-                break
+    text = message.content.lower()
+
+    for kw in keywords:
+        if kw.lower() in text:
+            role = message.guild.get_role(ROLE_ID)
+            await message.channel.send(f"{role.mention} 🔔 Keyword detected: **{kw}**")
+            break
 
     await bot.process_commands(message)
 
