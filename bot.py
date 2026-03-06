@@ -48,11 +48,7 @@ async def on_message(message):
     if message.author.bot:
         return
 
-    # chỉ đọc kênh joshin
-    if message.channel.id != CHANNEL_ID:
-        return
-
-    # bỏ qua lệnh
+    # nếu là lệnh thì chỉ chạy lệnh, không monitor
     if message.content.startswith("!"):
         await bot.process_commands(message)
         return
@@ -62,7 +58,7 @@ async def on_message(message):
     for kw in keywords:
         if kw.lower() in text:
             role = message.guild.get_role(ROLE_ID)
-            await message.channel.send(f"{role.mention} {kw}")
+            await message.channel.send(f"{role.mention} 🔔 {kw}")
             break
 
     await bot.process_commands(message)
