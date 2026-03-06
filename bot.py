@@ -62,7 +62,7 @@ async def on_message(message):
     for kw in keywords:
         if kw.lower() in text:
             role = message.guild.get_role(ROLE_ID)
-            await message.channel.send(f"{role.mention} 🔔 Keyword detected: **{kw}**")
+            await message.channel.send(f"{role.mention} {kw}")
             break
 
     await bot.process_commands(message)
