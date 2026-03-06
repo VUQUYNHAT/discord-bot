@@ -2,8 +2,9 @@ import discord
 from discord.ext import commands
 import os
 
-TOKEN = os.getenv("TOKEN")   # lấy token từ Railway Variables
-ROLE_ID = 1479100091313946635  # thay bằng ROLE ID của bạn
+TOKEN = os.getenv("TOKEN")
+ROLE_ID = 1479100091313946635
+CHANNEL_ID = 1453022405222989947  # ID kênh joshin
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -45,6 +46,10 @@ async def on_message(message):
 
     # bỏ qua bot
     if message.author.bot:
+        return
+
+    # chỉ đọc kênh joshin
+    if message.channel.id != CHANNEL_ID:
         return
 
     # bỏ qua lệnh
