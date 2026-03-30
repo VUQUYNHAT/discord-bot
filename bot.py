@@ -68,13 +68,13 @@ async def on_message(message):
 
     global last_message
 
-    # ❗ chỉ đọc webhook (bỏ hết user + bot thường)
-    if message.webhook_id is None:
-        return
-
-    # chạy lệnh bot (giữ nguyên)
+    # ✅ cho phép chạy lệnh trước (QUAN TRỌNG)
     if message.content.startswith("!"):
         await bot.process_commands(message)
+        return
+
+    # ❗ chỉ đọc webhook cho phần monitor
+    if message.webhook_id is None:
         return
 
     # chỉ đọc kênh joshin
@@ -83,7 +83,7 @@ async def on_message(message):
 
     text = message.content.lower()
 
-    # đọc embed (webhook thường dùng)
+    # đọc embed
     if message.embeds:
         embed = message.embeds[0]
         if embed.title:
@@ -91,7 +91,7 @@ async def on_message(message):
         if embed.description:
             text += " " + embed.description.lower()
 
-    # chống spam lặp
+    # chống spam
     if text == last_message:
         return
 
