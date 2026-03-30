@@ -68,11 +68,11 @@ async def on_message(message):
 
     global last_message
 
-    # bỏ bot
-    if message.author.bot:
+    # ❗ chỉ đọc webhook (bỏ hết user + bot thường)
+    if message.webhook_id is None:
         return
 
-    # chạy lệnh bot
+    # chạy lệnh bot (giữ nguyên)
     if message.content.startswith("!"):
         await bot.process_commands(message)
         return
